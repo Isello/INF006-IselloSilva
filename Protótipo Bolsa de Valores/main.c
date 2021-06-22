@@ -55,6 +55,7 @@ void printCompras(Compra* compras){
 	Compra* base;
 
 	for(base = compras; base != NULL; base = base->nextCompra){
+		
 		auxilia = base->nextCompra;
 		
 		if(auxilia != NULL){		
@@ -75,7 +76,7 @@ void printCompras(Compra* compras){
 		}	
 	}	
 }
-	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
+	printf("\nCï¿½digo do ativo | Valor do ativo  | Quantidade disponï¿½vel");
 	for(base = compras; base != NULL; base = base->nextCompra){
 		if(base->status != 0){
 			printf("\n     %s      |", base->nome);
@@ -116,7 +117,7 @@ void printVendas(Venda* vendas){
 		}	
 	}	
 }
-	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
+	printf("\nCï¿½digo do ativo | Valor do ativo  | Quantidade disponï¿½vel");
 	for(base=vendas; base!=NULL; base=base->nextVenda){
 		if(base->status != 0){
 			printf("\n     %s      |", base->nome);
@@ -409,7 +410,7 @@ int main(){
 		
 		transaction(venda, compra);
 		printf("\n");
-		printf("\nInforme a opcao desejada ou digite 7 para mostrar as opções disponíveis: ");
+		printf("\nInforme a opcao desejada ou digite 7 para mostrar as opï¿½ï¿½es disponï¿½veis: ");
 		scanf("%d",&option);
 		
 		switch(option){
@@ -439,7 +440,7 @@ int main(){
 				scanf("%s",&papel);
 				printf("\nQuantidade que deseja vender: ");
 				scanf("%d",&lote);				
-				printf("\nPreço de venda do papel: ");
+				printf("\nPreï¿½o de venda do papel: ");
 				scanf("%f",&price);
 				venda = insertVenda(venda,price,papel,lote);
 				transaction(venda, compra);
@@ -454,7 +455,7 @@ int main(){
 				scanf("%s",&papel);
 				printf("\nQuantidade que deseja comprar: ");
 				scanf("%d",&lote);				
-				printf("\nPreço de compra do papel: ");
+				printf("\nPreï¿½o de compra do papel: ");
 				scanf("%f",&price);
 				compra = insertCompra(compra,price,papel,lote);
 				transaction(venda, compra);
@@ -462,7 +463,7 @@ int main(){
 			
 			case 5:
 				printf("\n---------------------------------------");
-				printf("\n----- Cotações -----");
+				printf("\n----- Cotaï¿½ï¿½es -----");
 				printf("\n---------------------------------------");
 				printf("\n");
 				print_Cota();		
@@ -489,11 +490,11 @@ int main(){
 			
 			default:
 				
-				printf("\nEscolha uma opção válida.");
+				printf("\nEscolha uma opï¿½ï¿½o vï¿½lida.");
 				
 			break;
 		}
 	}
-	printf("\nVocê saiu.");
+	printf("\nVocï¿½ saiu.");
 	return 0;
 }
