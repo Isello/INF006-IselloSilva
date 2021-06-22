@@ -70,7 +70,7 @@ void print_Compras(Compra* compras){
 		}	
 	}	
 }
-	printf("\nCï¿½digo do ativo | Valor do ativo  | Quantidade disponï¿½vel");
+	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
 	for(base = compras; base != NULL; base = base->nextCompra){
 		if(base->status != 0){
 			printf("\n     %s      |", base->nome);
@@ -111,7 +111,7 @@ void print_Vendas(Venda* vendas){
 		}	
 	}	
 }
-	printf("\nCï¿½digo do ativo | Valor do ativo  | Quantidade disponï¿½vel");
+	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
 	for(base=vendas; base!=NULL; base=base->nextVenda){
 		if(base->status != 0){
 			printf("\n     %s      |", base->nome);
@@ -426,7 +426,7 @@ int main(){
 		
 		transaction(venda, compra);
 		printf("\n");
-		printf("\nInforme a opção desejada ou digite 7 para mostrar as opçõess disponíveis: ");
+		printf("\nInforme a opção desejada ou digite 7 para mostrar as opções disponíveis: ");
 		scanf("%d",&option);
 		
 		switch(option){
