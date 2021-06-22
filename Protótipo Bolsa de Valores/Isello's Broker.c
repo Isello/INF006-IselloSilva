@@ -1,6 +1,6 @@
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <string.h>
 
 typedef struct{
@@ -19,16 +19,10 @@ typedef struct{
 	struct Venda* nextVenda;
 }Venda;
 
-typedef struct{
-	float value;
-	int qtd;
-	char name[6];
-}Share;
-
 Compra* listaCompra(){return NULL;}
 Venda* listaVenda(){return NULL;}
 
-Compra* insertCompra(Compra* inicio, float price, char nome[6], int lote){
+Compra* insert_Compra(Compra* inicio, float price, char nome[6], int lote){
 	Compra* newCompra = (Compra*) malloc(sizeof(Compra));
 	strcpy(newCompra->nome,nome);
 	newCompra->price = price;
@@ -38,7 +32,7 @@ Compra* insertCompra(Compra* inicio, float price, char nome[6], int lote){
 	return newCompra;
 }
 
-Venda* insertVenda(Venda* inicio, float price, char nome[6], int lote){
+Venda* insert_Venda(Venda* inicio, float price, char nome[6], int lote){
 	Venda* newVenda = (Venda*) malloc(sizeof(Venda));
 	strcpy(newVenda->nome,nome);
 	newVenda->price = price;
@@ -48,7 +42,7 @@ Venda* insertVenda(Venda* inicio, float price, char nome[6], int lote){
 	return newVenda;
 }
 
-void printCompras(Compra* compras){
+void print_Compras(Compra* compras){
 	
 	Compra* auxilia = (Compra*)malloc(sizeof(Compra));
 	Compra* troca = (Compra*)malloc(sizeof(Compra));
@@ -87,7 +81,7 @@ void printCompras(Compra* compras){
 	}
 }
 
-void printVendas(Venda* vendas){
+void print_Vendas(Venda* vendas){
 	
 	Venda* auxilia = (Venda*)malloc(sizeof(Venda));
 	Venda* troca = (Venda*)malloc(sizeof(Venda));
@@ -141,14 +135,12 @@ void transaction(Venda* venda, Compra* compra){
 					auxVenda->status = 0;
 					auxCompra->lote = auxCompra->lote - auxVenda->lote;
 					auxVenda->lote = 0;
-					
 				}
 				
 				else if( auxVenda->lote > auxCompra->lote ){
 					auxCompra->status = 0;
 					auxVenda->lote = auxVenda->lote - auxCompra->lote ;
 					auxCompra->lote = 0;
-					
 				}
 				
 				else{
@@ -204,13 +196,10 @@ int conta_Compras() {
         return;
     }
 
-    while ( fscanf( f, "%f %d %s", &valor, &qtd, name) != EOF ){
-    	//printf("%.2f %d %s", valor, qtd, name);
-    	//printf("\n");    	
+    while ( fscanf( f, "%f %d %s", &valor, &qtd, name) != EOF ){   	
     	i++;
 	}
     fclose(f);
-    //printf("%d\n", i);
     return i;
 }
 
@@ -227,13 +216,10 @@ int conta_Vendas() {
         return;
     }
 
-    while ( fscanf( f, "%f %d %s", &valor, &qtd, name) != EOF ){
-    	//printf("%.2f %d %s", valor, qtd, name);
-    	//printf("\n");    	
+    while ( fscanf( f, "%f %d %s", &valor, &qtd, name) != EOF ){    	
     	i++;
 	}
     fclose(f);
-    //printf("%d\n", i);
     return i;
 }
 
@@ -252,8 +238,6 @@ void carrega_Compras(float *price, int *lote, char nome[][6], int conta) {
     }
 
     while ( fscanf( f, "%f %d %s", &valor, &qtd, name) != EOF && i<conta ){
-    	//printf("%.2f %d %s", valor, qtd, name);
-    	//printf("\n");
     	price[i] = valor;
     	lote[i] = qtd;
     	strcpy(nome[i],name);
@@ -277,8 +261,6 @@ void carrega_Vendas(float *price, int *lote, char nome[][6], int conta) {
     }
 
     while ( fscanf( g, "%f %d %s", &valor, &qtd, name) != EOF && i<conta ){
-    	//printf("%.2f %d %s", valor, qtd, name);
-    	//printf("\n");
     	price[i] = valor;
     	lote[i] = qtd;
     	strcpy(nome[i],name);
@@ -316,7 +298,6 @@ void print_Cota(){
 }
 
 void guardar_OrdensCompra(Compra *compras){
-	int na = 0;
 	Compra* auxilia = (Compra*)malloc(sizeof(Compra));
 	Compra* troca = (Compra*)malloc(sizeof(Compra));
 	Compra* base;
@@ -345,7 +326,7 @@ void guardar_OrdensCompra(Compra *compras){
 	}
 	
 	FILE *pont_arq;
-	pont_arq = fopen("teste.txt", "w");
+	pont_arq = fopen("ofertasCompras.txt", "w");
 
 	for(base = compras; base != NULL; base = base->nextCompra){
 		if(base->status != 0){
@@ -354,14 +335,52 @@ void guardar_OrdensCompra(Compra *compras){
 			fprintf(pont_arq, "%s\n", base->nome);
 		}	
 	}	
-	
-	///*
 	fclose(pont_arq);		
-	//*/
+}
+
+void guardar_OrdensVenda(Venda *vendas){
+	Venda* auxilia = (Venda*)malloc(sizeof(Venda));
+	Venda* troca = (Venda*)malloc(sizeof(Venda));
+	Venda* base;
+
+	for(base = vendas; base != NULL; base = base->nextVenda){
+		auxilia = base->nextVenda;
+		
+		if(auxilia != NULL){
+				
+			if(base->price > auxilia->price){
+			troca->price = base->price;
+			troca->lote = base->lote;
+			strcpy(troca->nome,base->nome);
+			troca->status = base->status;
+			base->price = auxilia->price;
+			base->lote = auxilia->lote;
+			strcpy(base->nome,auxilia->nome);
+			base->status = auxilia->status;
+			auxilia->price = troca->price;
+			auxilia->lote = troca->lote;
+			strcpy(auxilia->nome,troca->nome);
+			auxilia->status = troca->status;
+			base = vendas;
+			}	
+	    }	
+	}
 	
+	FILE *pont_arq;
+	pont_arq = fopen("ofertasVendas.txt", "w");
+
+	for(base = vendas; base != NULL; base = base->nextVenda){
+		if(base->status != 0){
+			fprintf(pont_arq, "%.2f ", base->price);
+			fprintf(pont_arq, "%d ", base->lote);
+			fprintf(pont_arq, "%s\n", base->nome);
+		}	
+	}	
+	fclose(pont_arq);		
 }
 
 int main(){
+	
 	setlocale(LC_ALL, "Portuguese");
 	int option=7;
 	int i;
@@ -373,14 +392,14 @@ int main(){
 	Compra* compra;
 	venda = listaVenda();
 	compra = listaCompra();
-	///*
+	
 	int x = conta_Compras();
 	float price1[x];
     int lote1[x];
     char name1[x][6];
     carrega_Compras(price1, lote1, name1, x);
     for(i=0; i<x; i++){
-    	compra = insertCompra(compra,price1[i],name1[i],lote1[i]);}	
+    	compra = insert_Compra(compra,price1[i],name1[i],lote1[i]);}	
     	
     int y = conta_Vendas();
 	float price2[y];
@@ -388,10 +407,7 @@ int main(){
     char name2[y][6];		
     carrega_Vendas(price2, lote2, name2, y);
     for(j=0; j<y; j++){
-    	venda = insertVenda(venda,price2[j],name2[j],lote2[j]);}	
-   	//*/
-    
-    
+    	venda = insert_Venda(venda,price2[j],name2[j],lote2[j]);}	
     
 	printf("---------------------------------------");
 	printf("\n            Isello's Broker");
@@ -402,7 +418,7 @@ int main(){
 	printf("\n2 - Exibir ordens de compra");				
 	printf("\n3 - Criar ordem de venda");
 	printf("\n4 - Criar ordem de compra");				
-	printf("\n5 - Ver cotacoes atuais");
+	printf("\n5 - Ver cotações atuais");
 	printf("\n6 - Limpar tela");
 	printf("\n0 - Sair");
 	//*/
@@ -410,7 +426,7 @@ int main(){
 		
 		transaction(venda, compra);
 		printf("\n");
-		printf("\nInforme a opcao desejada ou digite 7 para mostrar as opï¿½ï¿½es disponï¿½veis: ");
+		printf("\nInforme a opção desejada ou digite 7 para mostrar as opçõess disponíveis: ");
 		scanf("%d",&option);
 		
 		switch(option){
@@ -420,7 +436,7 @@ int main(){
 				printf("\n----- Ordens de Venda -----");
 				printf("\n---------------------------------------");
 				printf("\n");
-				printVendas(venda);
+				print_Vendas(venda);
 			break;
 			
 			case 2:
@@ -428,42 +444,42 @@ int main(){
 				printf("\n----- Ordens de Compra -----");
 				printf("\n---------------------------------------");
 				printf("\n");
-				printCompras(compra);
+				print_Compras(compra);
 			break;
 			
 			case 3:
 				printf("\n---------------------------------------");
-				printf("\n----- Operacao de Venda -----");
+				printf("\n----- Operação de Venda -----");
 				printf("\n---------------------------------------");
 				printf("\n");
-				printf("\nInforme o titulo que deseja vender: ");
+				printf("\nInforme a ação que deseja vender: ");
 				scanf("%s",&papel);
 				printf("\nQuantidade que deseja vender: ");
 				scanf("%d",&lote);				
-				printf("\nPreï¿½o de venda do papel: ");
+				printf("\nPreço de venda da ação: ");
 				scanf("%f",&price);
-				venda = insertVenda(venda,price,papel,lote);
+				venda = insert_Venda(venda,price,papel,lote);
 				transaction(venda, compra);
 			break;
 			
 			case 4:
 				printf("\n---------------------------------------");
-				printf("\n----- Operacao de Compra -----");
+				printf("\n----- Operação de Compra -----");
 				printf("\n---------------------------------------");
 				printf("\n");
-				printf("\nInforme o titulo que deseja comprar: ");
+				printf("\nInforme a ação que deseja comprar: ");
 				scanf("%s",&papel);
 				printf("\nQuantidade que deseja comprar: ");
 				scanf("%d",&lote);				
-				printf("\nPreï¿½o de compra do papel: ");
+				printf("\nPreço de compra da ação: ");
 				scanf("%f",&price);
-				compra = insertCompra(compra,price,papel,lote);
+				compra = insert_Compra(compra,price,papel,lote);
 				transaction(venda, compra);
 			break;
 			
 			case 5:
 				printf("\n---------------------------------------");
-				printf("\n----- Cotaï¿½ï¿½es -----");
+				printf("\n----- Cotações -----");
 				printf("\n---------------------------------------");
 				printf("\n");
 				print_Cota();		
@@ -478,7 +494,7 @@ int main(){
 				printf("\n2 - Exibir ordens de compra");				
 				printf("\n3 - Adicionar uma ordem de venda");
 				printf("\n4 - Adicionar uma ordem de compra");				
-				printf("\n5 - Ver cotacoes atuais");
+				printf("\n5 - Ver cotações atuais");
 				printf("\n6 - Limpar dados da tela");
 				printf("\n0 - Sair");								
 				
@@ -486,15 +502,17 @@ int main(){
 			
 			case 0:
 			guardar_OrdensCompra(compra);
+			guardar_OrdensVenda(venda);
 			break;
 			
 			default:
 				
-				printf("\nEscolha uma opï¿½ï¿½o vï¿½lida.");
+				printf("\nEscolha uma opção válida.");
 				
 			break;
 		}
 	}
-	printf("\nVocï¿½ saiu.");
+	printf("\nVocê saiu.");
 	return 0;
 }
+
