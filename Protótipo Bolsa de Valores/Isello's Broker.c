@@ -416,18 +416,6 @@ void guardar_OrdensVenda(Venda *vendas){
 	fclose(pont_arq);		
 }
 
-void guardar_Transactions( char name[], int lote, float x){
-	//
-	FILE *pont_arq;
-	
-	pont_arq = fopen("transactions.txt", "a");
-	
-	fprintf(pont_arq, "%s %d %f \n", name, lote, x);
-	
-	fclose(pont_arq);
-  
-}
-
 int main(){
 	
 	setlocale(LC_ALL, "Portuguese");
