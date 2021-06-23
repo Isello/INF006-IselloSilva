@@ -416,6 +416,7 @@ void guardar_OrdensVenda(Venda *vendas){
 	fclose(pont_arq);		
 }
 
+
 int main(){
 	
 	setlocale(LC_ALL, "Portuguese");
