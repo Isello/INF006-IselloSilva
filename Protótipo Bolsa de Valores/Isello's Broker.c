@@ -70,12 +70,12 @@ void print_Compras(Compra* compras){
 		}	
 	}	
 }
-	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
+	printf("\n Código do ativo | Valor do ativo   | Quantidade disponível");
 	for(base = compras; base != NULL; base = base->nextCompra){
 		if(base->status != 0){
-			printf("\n     %s      |", base->nome);
-			printf("       %.2f     |",base->price);	
-			printf("        %d",       base->lote);
+			printf("\n      %s      |", base->nome);
+			printf("        %.2f     |",base->price);	
+			printf("         %d",       base->lote);
 			
 		}	
 	}
@@ -111,12 +111,12 @@ void print_Vendas(Venda* vendas){
 		}	
 	}	
 }
-	printf("\nCódigo do ativo | Valor do ativo  | Quantidade disponível");
+	printf("\n Código do ativo | Valor do ativo   | Quantidade disponível");
 	for(base=vendas; base!=NULL; base=base->nextVenda){
 		if(base->status != 0){
-			printf("\n     %s      |", base->nome);
-			printf("       %.2f     |",base->price);	
-			printf("        %d",       base->lote);
+			printf("\n      %s      |", base->nome);
+			printf("        %.2f     |",base->price);	
+			printf("         %d",       base->lote);
 			
 		}	
 	}
@@ -163,8 +163,8 @@ void transaction1(Venda* venda, Compra* compra){
 					x = auxVenda->price;
 				}
 				
-				printf("\n\nOrdem executada!\n");
-				printf("%d unidades do papel %s foram negociados por R$%.2f cada.", k, auxCompra->nome, x);
+				printf("\n\n Ordem executada!\n");
+				printf(" %d unidades do papel %s foram negociados por R$%.2f cada.", k, auxCompra->nome, x);
 				//guarda_Cota(auxCompra->nome, x);
 				//guardar_Transactions( auxCompra->nome, k, x);
 				
@@ -450,24 +450,24 @@ int main(){
 	//print_Vendas(venda);
 	//print_Compras(compra);			
     
-	printf("---------------------------------------");
-	printf("\n     ----- Isello's Broker -----");
-	printf("\n---------------------------------------");
+	printf(" ---------------------------------------");
+	printf("\n      ----- Isello's Broker -----");
+	printf("\n ---------------------------------------");
 	printf("\n");
 	///*
-	printf("\n1 - Exibir ordens de venda");
-	printf("\n2 - Exibir ordens de compra");				
-	printf("\n3 - Criar ordem de venda");
-	printf("\n4 - Criar ordem de compra");				
-	printf("\n5 - Ver cotações atuais");
-	printf("\n0 - Sair");
+	printf("\n 1 - Exibir as ordens de venda");
+	printf("\n 2 - Exibir as ordens de compra");				
+	printf("\n 3 - Criar ordem de venda");
+	printf("\n 4 - Criar ordem de compra");				
+	printf("\n 5 - Ver cotações atuais");
+	printf("\n 0 - Sair");
 
 	//*/
 	while(option != 0){
 		transaction1(venda, compra);
 		
 		printf("\n");
-		printf("\nInforme a opção desejada ou digite 9 para voltar ao início: ");
+		printf("\n Informe a opção desejada ou digite 9 para voltar ao início: ");
 		scanf("%d",&option);
 		
 		switch(option){
@@ -475,9 +475,9 @@ int main(){
 
 		
 			case 1:
-				printf("\n---------------------------------------");
-				printf("\n----- Ordens de Venda -----");
-				printf("\n---------------------------------------");
+				printf("\n ---------------------------------------");
+				printf("\n ----- Ordens de Venda -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
 				transaction1(venda, compra);
 					
@@ -485,24 +485,24 @@ int main(){
 			break;
 			
 			case 2:
-				printf("\n---------------------------------------");
-				printf("\n----- Ordens de Compra -----");
-				printf("\n---------------------------------------");
+				printf("\n ---------------------------------------");
+				printf("\n ----- Ordens de Compra -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
 				transaction1(venda, compra);			
 				print_Compras(compra);
 			break;
 			
 			case 3:
-				printf("\n---------------------------------------");
-				printf("\n----- Operação de Venda -----");
-				printf("\n---------------------------------------");
+				printf("\n ---------------------------------------");
+				printf("\n ----- Operação de Venda -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
-				printf("\nInforme a ação que deseja vender: ");
+				printf("\n Informe a ação que deseja vender: ");
 				scanf("%s",&papel);
-				printf("\nQuantidade que deseja vender: ");
+				printf("\n Quantidade que deseja vender: ");
 				scanf("%d",&lote);				
-				printf("\nPreço de venda da ação: ");
+				printf("\n Preço de venda da ação: ");
 				scanf("%f",&price);
 				venda = insert_Venda(venda,price,papel,lote);
 				transaction1(venda, compra);
@@ -510,41 +510,41 @@ int main(){
 			break;
 			
 			case 4:
-				printf("\n---------------------------------------");
-				printf("\n----- Operação de Compra -----");
-				printf("\n---------------------------------------");
+				printf("\n ---------------------------------------");
+				printf("\n ----- Operação de Compra -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
-				printf("\nInforme a ação que deseja comprar: ");
+				printf("\n Informe a ação que deseja comprar: ");
 				scanf("%s",&papel);
-				printf("\nQuantidade que deseja comprar: ");
+				printf("\n Quantidade que deseja comprar: ");
 				scanf("%d",&lote);				
-				printf("\nPreço de compra da ação: ");
+				printf("\n Preço de compra da ação: ");
 				scanf("%f",&price);
 				compra = insert_Compra(compra,price,papel,lote);
 				transaction1(venda, compra);
 			break;
 			
 			case 5:
-				printf("\n---------------------------------------");
-				printf("\n----- Cotações -----");
-				printf("\n---------------------------------------");
+				printf("\n ---------------------------------------");
+				printf("\n ----- Cotações -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
 				print_Cota();		
 			break;
 		
 			case 9:
 				system("cls");
-				printf("---------------------------------------");
-				printf("\n     ----- Isello's Broker -----");
-				printf("\n---------------------------------------");
+				printf(" ---------------------------------------");
+				printf("\n      ----- Isello's Broker -----");
+				printf("\n ---------------------------------------");
 				printf("\n");
-				printf("\n1 - Exibir ordens de venda");
-				printf("\n2 - Exibir ordens de compra");				
-				printf("\n3 - Adicionar uma ordem de venda");
-				printf("\n4 - Adicionar uma ordem de compra");				
-				printf("\n5 - Ver cotações atuais");
-				printf("\n9 - Limpar dados da tela");
-				printf("\n0 - Sair");								
+				printf("\n 1 - Exibir as ordens de venda");
+				printf("\n 2 - Exibir as ordens de compra");				
+				printf("\n 3 - Adicionar uma ordem de venda");
+				printf("\n 4 - Adicionar uma ordem de compra");				
+				printf("\n 5 - Ver cotações atuais");
+				printf("\n 9 - Limpar dados da tela");
+				printf("\n 0 - Sair");								
 				
 			break;
 			
@@ -555,12 +555,12 @@ int main(){
 			
 			default:
 				
-				printf("\nEscolha uma opção válida.");
+				printf("\n Escolha uma opção válida.");
 				
 			break;
 		}
 	}
-	printf("\nVocê saiu.");
+	printf("\n Você saiu.");
 	return 0;
 }
 
